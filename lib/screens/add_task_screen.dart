@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey/models/task_data.dart';
 
 // the code below is used for creating a screen or widget that pops
 // up when the floating action button is pressed so that the user can add a task
 // to our todoey app
 class AddTaskScreen extends StatelessWidget {
-  // creating a property here named onPressedCallbackFunctionality
-  final Function onPressedCallbackFunctionality;
-
-  AddTaskScreen(this.onPressedCallbackFunctionality);
+  // // creating a property here named onPressedCallbackFunctionality
+  // final Function onPressedCallbackFunctionality;
+  //
+  // AddTaskScreen(this.onPressedCallbackFunctionality);
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +84,21 @@ class AddTaskScreen extends StatelessWidget {
               // making the button as blue color button
               color: Colors.lightBlueAccent,
               onPressed: () {
-                onPressedCallbackFunctionality(newTaskTitle);
+                // the code below is for using the onPressedCallback functionality
+                // function to add a new task to the list
+                // onPressedCallbackFunctionality(newTaskTitle);
+
+
+
+                // using the Provider widget to get access to the addTask() method
+                // in the task data class to add a new task to the task list
+                Provider.of<TaskData>(context,listen: false).addTask(newTaskTitle);
+
+
+                // using the navigator to close the bottom sheet when the user presses
+                // the button
+                Navigator.pop(context);
+
               },
               child: Text(
                 'Add',

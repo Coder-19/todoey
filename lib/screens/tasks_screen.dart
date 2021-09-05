@@ -1,32 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:todoey/models/task.dart';
-import 'package:todoey/reusable_widgets/task_tile.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey/models/task_data.dart';
 import 'package:todoey/reusable_widgets/tasks_list.dart';
 import 'package:todoey/screens/add_task_screen.dart';
 
 // creating a stateless widget named tasksScreen here
 
-class TasksScreen extends StatefulWidget {
-  @override
-  _TasksScreenState createState() => _TasksScreenState();
-}
 
-class _TasksScreenState extends State<TasksScreen> {
-  // creating a new property here of type List<Task> to keep
-  // a check of what the task is and whether the task is completed
-  // or not
-  List<Task> tasks = [
-    // creating three new tasks here
-    Task(
-      taskName: 'Buy Milk',
-    ),
-    Task(
-      taskName: 'Buy Bread',
-    ),
-    Task(
-      taskName: 'Buy Eggs',
-    ),
-  ];
+// converting the widget below from a statefull widget to a stateless widget
+
+class TasksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +68,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 // the text widget below is used to show the number of tasks left in
                 // the todoey app
                 Text(
-                  '${tasks.length} Tasks',
+                  '${Provider.of<TaskData>(context).taskCount} Tasks',
                   // changing the style of the text
                   style: TextStyle(
                     color: Colors.white,
@@ -117,7 +100,7 @@ class _TasksScreenState extends State<TasksScreen> {
               ),
               // creating a list of the todo tasks using list view widget
               child: TasksList(
-                tasks: tasks,
+                // tasks: tasks,
               ),
             ),
           ),
@@ -145,14 +128,7 @@ class _TasksScreenState extends State<TasksScreen> {
             isScrollControlled: true,
             context: context, // here in the context property we are passing the
             // current context of our app
-            // builder:
-            //     buildBottomSheet, // using the method buildBottomSheet method here
-
-            // rather that passing a function as parameter to the builder property
-            // we can use anonymous function as an input parameter to the builder property
-            // as shown below:-
-            // builder: (context) => Container(),
-
+            
             builder: (context) => SingleChildScrollView(
               child: Container(
                 // adding padding to the bottom of the container
@@ -160,23 +136,9 @@ class _TasksScreenState extends State<TasksScreen> {
                 padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.bottom,
                 ),
-                child: AddTaskScreen(
-                  (newTaskTitle) {
-                    // print("The task to be added is: $newTaskTitle");
+                
 
-                    //  adding the newTaskTitle to the tasks
-                    // list
-                    setState(() {
-                      tasks.add(
-                        Task(
-                          taskName: newTaskTitle,
-                        ),
-                      );
-                    });
-
-                    Navigator.pop(context);
-                  },
-                ),
+                child: AddTaskScreen(),
               ),
             ), // using the add task screen widget here
           );

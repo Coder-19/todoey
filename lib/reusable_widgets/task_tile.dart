@@ -22,11 +22,16 @@ class TaskTile extends StatelessWidget {
   // checkbox
   final Function checkboxCallback;
 
+  // the code below is used to create a property for creating a function
+  // to be called when the user clicks on the task tile to delete the task
+  final Function deleteTaskFunctionality;
+
   // initializing the above properties using the dart constructor
   TaskTile({
     this.isChecked,
     this.taskTitle,
     this.checkboxCallback,
+    this.deleteTaskFunctionality,
   });
 
   @override
@@ -60,6 +65,9 @@ class TaskTile extends StatelessWidget {
 
        
       ),
+      // using the onTap property to create a method to delete a task when
+      // the user clicks the task tile
+      onTap: deleteTaskFunctionality,
     );
   }
 }
